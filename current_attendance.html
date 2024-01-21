@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // WebSocket connection
+      const ws = new WebSocket("ws://raspberrypi.local:8888/ws");
+
+      // DOM elements
+      const table = document.getElementById('table');
+
+      // Event listener for WebSocket connection open
+      ws.onopen = function (evt) {
+        alert("Connected");
+      };
+
+      // Event listener for incoming WebSocket messages
+      ws.onmessage = function (evt) {
+        let row = table.insertRow(0); // We are adding at the end
+   
+      // Create table cells
+      let c1 = row.insertCell(0);
+      let c2 = row.insertCell(1);
+      let c3 = row.insertCell(2);
+      let c4 = row.insertCell(3);
+      let c5 = row.insertCell(4);
+      let c6 = row.insertCell(5);
+      let c7 = row.insertCell(6);
+   
+      // Add data to c1 and c2
+      c1.innerText = "Test"
+      c2.innerText = "Measuring..."
+      };
+
+      // Event listener for WebSocket connection close
+      ws.onclose = function (evt) {
+        alert("Connection closed");
+      };
+    });
+  </script>
+    <title>User Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>User Information</h1>
+    <table id="table">
+        <thead>
+            <tr>
+                <th>User ID</th>
+                <th>User Name</th>
+                <th>Entering Timestamp</th>
+                <th>Leaving Timestamp</th>
+                <th>Alcohol Content (BAC)</th>
+                <th>Temperature</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Add user data dynamically here -->
+            <tr>
+                <td>1</td>
+                <td>Antonio Žugec</td>
+                <td>2023-01-01 08:05 AM</td>
+                <td></td>
+                <td>Measuring...</td>
+                <td>Measuring...</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Juraj Perić</td>
+                <td>2023-01-01 08:00 AM</td>
+                <td></td>
+                <td>0.05</td>
+                <td>32°C</td>
+                <td><i class="fa fa-trash" style="font-size:24px"></i></td>
+            </tr>
+            <!-- Add more rows as needed -->
+        </tbody>
+    </table>
+</body>
+</html>

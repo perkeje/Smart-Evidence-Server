@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Current Attendance</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <div class="navbar">
+        <a href="/">Current Lecture</a>
+        <a href="/lecture">Add New Lecture</a>
+        <a href="/add_user">Add New User</a>
+    </div>
+
+    <div class="main-content">
+        <h1>Current Attendance</h1>
+        <table id="attendanceTable">
+            <tr>
+                <th>User ID</th>
+                <th>User Name</th>
+                <th>Entering Timestamp</th>
+                <th>Leaving Timestamp</th>
+                <th>Alcohol Content</th>
+                <th>Temperature</th>
+                <th></th> <!-- Empty title for delete icon -->
+            </tr>
+            <!-- Sample Row -->
+            <tr>
+                <td>1</td>
+                <td>John Doe</td>
+                <td>08:00 AM</td>
+                <td>12:00 PM</td>
+                <td>0.0%</td>
+                <td>98.6°F</td>
+                <td><button class="delete-btn">🗑️</button></td>
+            </tr>
+            <!-- Additional rows will go here -->
+        </table>
+
+        <!-- Message if no lecture is available -->
+        <p id="noLectureMsg" style="display:none;">No current lecture found. Please <a href="lecture.html">add a new lecture</a>.</p>
+    </div>
+
+    <!-- Possible JavaScript to handle empty table and deletion, not included in this code -->
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add New User</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script>
+        var ws;
+        var loading = false;
+
+        function initWebSocket() {
+            ws = new WebSocket("ws://raspberrypi.local:8888/user_addition_ws");
+
+            ws.onopen = function() {
+                console.log("WebSocket connection opened");
+            };
+
+            ws.onmessage = function(evt) {
+                loading = false;
+                updateLoadingState();
+
+                var received_msg = evt.data;
+                console.log("Message received: " + received_msg);
+
+                // Handle the success message here
+                if (received_msg === "User Added") {
+                    alert("User successfully added!");
+                }
+            };
+
+            ws.onclose = function() {
+                console.log("WebSocket connection closed");
+            };
+        }
+
+        function addUser() {
+            var firstName = document.getElementById("firstName").value;
+            var lastName = document.getElementById("lastName").value;
+            
+            // Send this information to the Tornado server via WebSocket
+            ws.send(JSON.stringify({ firstName: firstName, lastName: lastName }));
+
+            loading = true;
+            updateLoadingState();
+        }
+
+        function updateLoadingState() {
+            var loader = document.getElementById("loader");
+            if (loading) {
+                loader.style.display = "block";
+            } else {
+                loader.style.display = "none";
+            }
+        }
+
+        window.onload = initWebSocket;
+    </script>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/">Current Lecture</a>
+        <a href="/lecture">Add New Lecture</a>
+        <a href="/add_user">Add New User</a>
+    </div>
+
+    <div class="main-content">
+        <h1>Add New User</h1>
+        <input type="text" id="firstName" placeholder="First Name">
+        <input type="text" id="lastName" placeholder="Last Name">
+        <button onclick="addUser()">Add User</button>
+        <div id="loader" style="display:none;">Loading...</div>
+    </div>
+</body>
+</html>
