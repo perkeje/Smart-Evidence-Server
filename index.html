@@ -12,34 +12,56 @@
     </div>
 
     <div class="main-content">
-        <h1>Current Attendance</h1>
-        <table id="attendanceTable">
-            <tr>
-                <th>User ID</th>
+        {% if lecture_name %}
+            <h1>Attendance for {{ lecture_name }}</h1>
+            <table id="attendanceTable">
+                <tr>
                 <th>User Name</th>
                 <th>Entering Timestamp</th>
                 <th>Leaving Timestamp</th>
                 <th>Alcohol Content</th>
                 <th>Temperature</th>
                 <th></th> <!-- Empty title for delete icon -->
-            </tr>
-            <!-- Sample Row -->
-            <tr>
-                <td>1</td>
-                <td>John Doe</td>
-                <td>08:00 AM</td>
-                <td>12:00 PM</td>
-                <td>0.0%</td>
-                <td>98.6°F</td>
-                <td><button class="delete-btn">🗑️</button></td>
-            </tr>
-            <!-- Additional rows will go here -->
-        </table>
-
-        <!-- Message if no lecture is available -->
-        <p id="noLectureMsg" style="display:none;">No current lecture found. Please <a href="lecture.html">add a new lecture</a>.</p>
+                </tr>
+                {% for record in attendance_records %}
+                <tr>
+                    <td>{{ record[1] }} {{ record[2] }}</td> <!-- First Name, Last Name -->
+                    <td>{{ record[3] }}</td> <!-- Attendance ID -->
+                    <td>{{ record[4] }}</td> <!-- Attendance ID -->
+                    <td>{{ record[5] }}</td> <!-- Attendance ID -->
+                    <td>{{ record[6] }}</td> <!-- Attendance ID -->
+                    <td><button class="delete-btn">🗑️</button></td> <!-- Attendance ID -->
+                </tr>
+                {% end %}
+            </table>
+        {% else %}
+            <p>No current lecture found. Please <a href="/lecture">add a new lecture</a>.</p>
+        {% end %}
     </div>
 
-    <!-- Possible JavaScript to handle empty table and deletion, not included in this code -->
+    <script>
+        var ws = new WebSocket("ws://raspberrypi.local:8888/evidence_client_ws");
+    
+        ws.onopen = function() {
+            console.log("Connected to evidence client WebSocket");
+        };
+    
+        ws.onmessage = function(event) {
+            var message = JSON.parse(event.data);
+            // Add logic to update the HTML table with new attendance data
+            console.log("Received update:", message);
+            // You can call a function here to update the table
+            updateAttendanceTable(message);
+        };
+    
+        ws.onclose = function() {
+            console.log("Disconnected from evidence client WebSocket");
+        };
+    
+        function updateAttendanceTable(message) {
+            // Implement this function to update the table based on the received message
+        }
+    </script>
+    
 </body>
 </html>

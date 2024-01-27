@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Lecture</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="navbar">
+        <a href="/">Current Lecture</a>
+        <a href="/lecture">Add New Lecture</a>
+        <a href="/add_user">Add New User</a>
+    </div>
+    <div class="main-content">
+        <h1>Add New Lecture</h1>
+        <form action="/lecture" method="post">
+            <label for="lectureName">Lecture Name:</label>
+            <input type="text" id="lectureName" name="lectureName" required>
+            <input type="submit" value="Add Lecture">
+        </form>
+    </div>
+</body>
+</html>

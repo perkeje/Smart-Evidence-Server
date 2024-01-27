@@ -12,6 +12,7 @@ CREATE TABLE users (
 );
 CREATE TABLE lectures (
     lecture_id UUID PRIMARY KEY DEFAULT UUID(),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     name VARCHAR(255) NOT NULL
 );
 CREATE TABLE user_attendance (
